@@ -5,7 +5,7 @@ Name: untie
 Version: 0.4
 Release: %mkrel 0.1.git%{git}
 License: GPL
-Group: System/Utilities
+Group: Shells
 URL: http://guichaz.free.fr/untie
 Source0: untie-%{version}-%{git}.tar.gz
 

@@ -1,0 +1,35 @@
+--- untie-0.4/untie.c.orig	2011-12-14 15:06:52.615405295 +0000
++++ untie-0.4/untie.c	2011-12-14 15:06:26.771421805 +0000
+@@ -18,6 +18,7 @@
+  * Copyright (c) 2006, 2007 Guillaume Chazarain <guichaz@yahoo.fr>
+  */
+ 
++#include <sys/mman.h>
+ #include <sys/time.h>
+ #include <sys/resource.h>
+ #include <sys/types.h>
+@@ -61,7 +62,7 @@ struct user_info {
+  * The temporary stack for the cloned process
+  */
+ #define STACK_SIZE (1 << 20)
+-static char stack[STACK_SIZE];
++static char *stack;
+ 
+ /*
+  * Get the clone(2) flags from the command line arguments
+@@ -575,7 +576,14 @@ int main(int argc, char *argv[])
+ 		install_sigchld_handler(&args_info);
+ 		install_signals_handlers();
+ 		flags |= SIGCHLD;
+-		child_pid = clone(child_process, &stack[STACK_SIZE - 1], flags,
++		stack = mmap(NULL, STACK_SIZE,
++			     PROT_EXEC | PROT_READ | PROT_WRITE,
++		             MAP_PRIVATE | MAP_ANON | MAP_GROWSDOWN, -1, 0);
++		if (stack == MAP_FAILED) {
++			perror("mmap");
++			return EXIT_FAILURE;
++		}
++		child_pid = clone(child_process, stack + STACK_SIZE, flags,
+ 				  &args_info);
+ 		if (child_pid < 0) {
+ 			perror("clone");

@@ -6,7 +6,7 @@ Version: 0.4
 Release: %mkrel 0.1.git%{git}
 License: GPL
 Group: Shells
-URL: http://guichaz.free.fr/untie
+URL: https://guichaz.free.fr/untie
 Source0: untie-%{version}-%{git}.tar.gz
 
 %description

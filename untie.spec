@@ -9,6 +9,7 @@ Group: Shells
 URL: https://guichaz.free.fr/untie
 Source0: untie-%{version}-%{git}.tar.gz
 
+BuildRequires:	make
 %description
 untie is a tool used to launch commands in new namespaces.
 

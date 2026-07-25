@@ -3,7 +3,7 @@
 Summary: Process namespace creator
 Name: untie
 Version: 0.4
-Release: %mkrel 0.1.git%{git}
+Release: 0.2.git%{git}
 License: GPL
 Group: Shells
 URL: https://guichaz.free.fr/untie
